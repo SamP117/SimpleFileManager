@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace SimpleFileManager
 {
@@ -19,9 +20,13 @@ namespace SimpleFileManager
         private string currentlySelectedItemName = "";
 
 
+
         public Form1()
         {
             InitializeComponent();
+
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            Text = Text + " " + version.Major + "." + version.Minor + " (build " + version.Build + ")"; //change form title
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -56,6 +61,7 @@ namespace SimpleFileManager
                     DirectoryInfo[] dirs = fileList.GetDirectories(); //Gets all directories
                     string fileExtension = "";
                     listView1.Items.Clear();
+
 
                     for (int i = 0; i < files.Length; i++)
                     {
@@ -178,5 +184,6 @@ namespace SimpleFileManager
             goBack();
             loadButtonAction();
         }
+
     }
 }
