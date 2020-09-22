@@ -15,24 +15,37 @@ namespace SimpleFileManager
 {
     public partial class Form1 : Form
     {
-        private string filePath = "D:";
+        private string filePath = "D:/Sam";
         private bool isFile = false; //need false for navigation
         private string currentlySelectedItemName = "";
-
-
 
         public Form1()
         {
             InitializeComponent();
 
-            Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            Text = Text + " " + version.Major + "." + version.Minor + " (build " + version.Build + ")"; //change form title
+            //Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            //Text = Text + " " + version.Major + "." + version.Minor + " (build " + version.Build + ")"; //change form title
+
+            //Console.WriteLine(Application.ProductVersion);              // Outputs 1.2.0.5
+
+            //Version version = new Version(Application.ProductVersion);
+            //Console.WriteLine(version.Major);                           // Outputs 1
+            //Console.WriteLine(version.Minor);                           // Outputs 2
+            //Console.WriteLine(version.Build);                           // Outputs 0
+            //Console.WriteLine(version.Revision);                        // Outputs 5
+
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             filePathTextBox.Text = filePath;
             loadFilesAndDirectories();
+
+            //set version info
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            this.lblVersion.Text = String.Format(this.lblVersion.Text, version.Major, version.Minor, version.Build, version.Revision);
         }
         public void loadFilesAndDirectories()
         {
@@ -54,7 +67,7 @@ namespace SimpleFileManager
                 {
                     fileAttr = File.GetAttributes(filePath);
                 }
-                if((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
+                if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
                 {
                     fileList = new DirectoryInfo(filePath);
                     FileInfo[] files = fileList.GetFiles(); //Gets all files
@@ -66,7 +79,7 @@ namespace SimpleFileManager
                     for (int i = 0; i < files.Length; i++)
                     {
                         fileExtension = files[i].Extension.ToUpper();
-                        switch(fileExtension)
+                        switch (fileExtension)
                         {
                             case ".MP3":
                             case ".MP2":
@@ -100,7 +113,7 @@ namespace SimpleFileManager
                                 listView1.Items.Add(files[i].Name, 8);
                                 break;
                         }
-                        
+
                     }
                     for (int i = 0; i < dirs.Length; i++)
                     {
@@ -112,7 +125,7 @@ namespace SimpleFileManager
                     lblFileName.Text = this.currentlySelectedItemName;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
 
             }
@@ -128,7 +141,7 @@ namespace SimpleFileManager
         public void removeBackSlash()
         {
             string path = filePathTextBox.Text;
-            if(path.LastIndexOf("/") == path.Length - 1)
+            if (path.LastIndexOf("/") == path.Length - 1)
             {
                 filePathTextBox.Text = path.Substring(0, path.Length - 1);
             }
@@ -152,7 +165,6 @@ namespace SimpleFileManager
             }
         }
 
-
         private void btnGo_Click(object sender, EventArgs e)
         {
             loadButtonAction();
@@ -163,7 +175,7 @@ namespace SimpleFileManager
             currentlySelectedItemName = e.Item.Text;
 
             FileAttributes fileAttr = File.GetAttributes(filePath + "/" + currentlySelectedItemName);
-            if((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
+            if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
             {
                 isFile = false; //because it's directory
                 filePathTextBox.Text = filePath + "/" + currentlySelectedItemName;
@@ -184,6 +196,5 @@ namespace SimpleFileManager
             goBack();
             loadButtonAction();
         }
-
     }
 }

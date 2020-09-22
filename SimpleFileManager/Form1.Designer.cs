@@ -39,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblFiletype = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnBack
@@ -132,11 +133,21 @@
             this.lblFiletype.TabIndex = 7;
             this.lblFiletype.Text = "--";
             // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(675, 437);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(113, 13);
+            this.lblVersion.TabIndex = 8;
+            this.lblVersion.Text = "Version: {0}.{1}.{2}.{3}";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblFiletype);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -164,6 +175,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblFiletype;
+        private System.Windows.Forms.Label lblVersion;
     }
 }
 
