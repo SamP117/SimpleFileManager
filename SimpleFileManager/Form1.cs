@@ -15,28 +15,15 @@ namespace SimpleFileManager
 {
     public partial class Form1 : Form
     {
-        private string filePath = "D:/Sam";
+        private string filePath = "D:/Sam"; //designated file path, can leave as "D:/. Must be / not \
         private bool isFile = false; //need false for navigation
         private string currentlySelectedItemName = "";
 
         public Form1()
         {
             InitializeComponent();
-
-            //Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            //Text = Text + " " + version.Major + "." + version.Minor + " (build " + version.Build + ")"; //change form title
-
-            //Console.WriteLine(Application.ProductVersion);              // Outputs 1.2.0.5
-
-            //Version version = new Version(Application.ProductVersion);
-            //Console.WriteLine(version.Major);                           // Outputs 1
-            //Console.WriteLine(version.Minor);                           // Outputs 2
-            //Console.WriteLine(version.Build);                           // Outputs 0
-            //Console.WriteLine(version.Revision);                        // Outputs 5
-
-
-
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
