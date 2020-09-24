@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Reflection;
+using System.Linq;
+using System.Data;
+using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 
 namespace SimpleFileManager
 {
     public partial class Form1 : Form
     {
         private string filePath = "D:/Sam"; //designated file path, can leave as "D:/. Must be / not \
+
         private bool isFile = false; //need false for navigation
         private string currentlySelectedItemName = "";
 
@@ -23,6 +21,9 @@ namespace SimpleFileManager
         {
             InitializeComponent();
         }
+
+        DataTable dt = new DataTable();
+        SQLiteConnection con = new SQLiteConnection(@"datasource = C:\Users\admin\Desktop\Databases\sms.db"); // we are going to connect to this db.
 
 
         private void Form1_Load(object sender, EventArgs e)
@@ -182,6 +183,31 @@ namespace SimpleFileManager
         {
             goBack();
             loadButtonAction();
+        }
+
+        private void btnSortMusic_Click(object sender, EventArgs e)
+        {
+            DataTable DT = (DataTable)dataGridView1.DataSource;
+            if (DT != null)
+                DT.Clear();
+            // connection object - connect to db
+            //command object - write sql query
+            string query = "SELECT FileName, FilePath, FileType, Comment FROM MediaFiles WHERE FileType LIKE 'MP3'";
+            SQLiteCommand cmd = new SQLiteCommand(query, con); //what query to execute, what connection
+                                                               // adapter - read data from db
+                                                               // datatable - adapter will read data and write into datatable
+            
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd); //execute this command and give us the data
+            adapter.Fill(dt);
+
+            dataGridView1.DataSource = dt; //where will I read data from
+        }
+
+        private void btnEditPlaylist_Click(object sender, EventArgs e)
+        {
+            var m = new Playlist();
+            m.Show();
+
         }
     }
 }
